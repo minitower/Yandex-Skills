@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "session": {
+    "message_id": 0,
+    "session_id": "51e30272-4c56-443c-b27a-b08bd32728c8",
+    "skill_id": "6e175d58-235d-4a4e-8c72-c6a75d58a143",
+    "user": {
+      "user_id": "87DF40385F2A354D28BF1EEDCE496A78EDFD31BDECFFDA44761DA5527BF3667E"
+    },
+    "application": {
+      "application_id": "E295F70058740C37902C4AAA8F0EB78CCEFC917BDBF71EB3828716A5B6A21FDA"
+    },
+    "new": true,
+    "user_id": "E295F70058740C37902C4AAA8F0EB78CCEFC917BDBF71EB3828716A5B6A21FDA"
+  },
+  "response": {
+    "end_session": false,
+    "text": "Привет! Купи слона!",
+    "buttons": [
+      {
+        "title": "Не хочу.",
+        "hide": true
+      },
+      {
+        "title": "Не буду.",
+        "hide": true
+      }
+    ]
+  }
+}
