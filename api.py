@@ -1,17 +1,17 @@
 # coding: utf-8
 # Импортирует поддержку UTF-8.
 from __future__ import unicode_literals
-from func import *
-from todoist import *
 
-# Импортируем модули для работы с JSON и логами.
+#Собственные модули
+from func import *
+from todoist_module import *
+
+# Модули для работы с JSON и логами.
 import json
 import logging
 
-# Импортируем подмодули Flask для запуска веб-сервиса.
+# Подмодули Flask для запуска веб-сервиса.
 from flask import Flask, request
-
-from todoist_module import *
 
 app = Flask(__name__)
 
