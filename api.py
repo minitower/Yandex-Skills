@@ -2,6 +2,7 @@
 # Импортирует поддержку UTF-8.
 from __future__ import unicode_literals
 from func import *
+from todoist import *
 
 # Импортируем модули для работы с JSON и логами.
 import json
@@ -9,6 +10,9 @@ import logging
 
 # Импортируем подмодули Flask для запуска веб-сервиса.
 from flask import Flask, request
+
+from todoist_module import *
+
 app = Flask(__name__)
 
 
@@ -64,22 +68,68 @@ def handle_dialog(req, res):
         res['response']['buttons'] = get_suggests(user_id)
         return
 
-    # Обрабатываем ответ пользователя.
-    if req['request']['original_utterance'].lower() in [
-        'ладно',
-        'куплю',
-        'покупаю',
-        'хорошо',
-    ]:
-        # Пользователь согласился, прощаемся.
-        res['response']['text'] = 'Слона можно найти на Яндекс.Маркете!'
+    if req ['request'] ['original_utterance'].lower () in [
+        'катя',
+        'екатерина',
+        'катюша',
+        'красавица']:
+        sessionStorage [user_id] = {}
+
+        sessionStorage [user_id] = {
+            'suggests': [
+                "Добавить заметку",
+                "Назначить событие",
+                "Надиктовать идеи и мысли"
+            ]
+        }
+
+        res ['response'] ['text'] = 'Рада вас видеть! Что вы хотите сделать?'
+        res ['response'] ['buttons'] = get_suggests (user_id)
         return
 
-    # Если нет, то убеждаем его купить слона!
-    res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
-        req['request']['original_utterance']
-    )
-    res['response']['buttons'] = get_suggests(user_id)
+    if req['request']['original_utterance'].lower () in [
+        'добавить заметку',
+        'создать заметку',
+        'сформировать заметку',
+        'заметку']:
+
+        api = start_todoist ()
+
+        sessionStorage [user_id] = {}
+
+        lst_projects = pars_responce (api)
+
+        sessionStorage [user_id] = {
+            'API': [
+                "True"
+            ],
+            'suggests': lst_projects
+        }
+
+        res ['response'] ['text'] = 'А в какой проект вы хотите записать это?'
+        res ['response'] ['buttons'] = get_suggests (user_id)
+        return
+
+
+    if req['request']['original_utterance'].lower () in [
+        'добавить заметку',
+        'создать заметку',
+        'сформировать заметку',
+        'заметку']:
+
+        start_todoist ()
+
+        sessionStorage [user_id] = {
+            'note': [
+                "True"
+            ]
+        }
+
+        res ['response'] ['text'] = 'Отлично, записываю'
+        res ['response'] ['buttons'] = get_suggests (user_id)
+        return
+
+
 
 # Функция возвращает две подсказки для ответа.
 def get_suggests(user_id):
