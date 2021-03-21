@@ -5,11 +5,9 @@ from __future__ import unicode_literals
 # Импортируем модули для работы с JSON и логами.
 import json
 import logging
-from datetime import datetime
 
 # Импортируем подмодули Flask для запуска веб-сервиса.
 from flask import Flask, request
-
 app = Flask(__name__)
 
 
@@ -20,18 +18,6 @@ sessionStorage = {}
 
 # Задаем параметры приложения Flask.
 @app.route("/", methods=['POST'])
-
-def say_hi():
-    time_to_start = datetime.now()
-    if time_to_start>=6 and time_to_start<=11:
-        ToD = 'Доброе утро!'
-    if time_to_start>=12 and time_to_start<=20:
-        ToD = 'Добрый день!'
-    if time_to_start >= 21 and time_to_start <= 0:
-        ToD = 'Добрый вечер!'
-    if time_to_start >= 21 and time_to_start <= 0:
-        ToD = 'Доброй ночи!'
-    hello_message = '{} Представся пожалуйста!'.format(ToD)
 
 def main():
 # Функция получает тело запроса и возвращает ответ.
@@ -58,6 +44,7 @@ def main():
 # Функция для непосредственной обработки диалога.
 def handle_dialog(req, res):
     user_id = req['session']['user_id']
+
     if req['session']['new']:
         # Это новый пользователь.
         # Инициализируем сессию и поприветствуем его.
@@ -70,8 +57,7 @@ def handle_dialog(req, res):
             ]
         }
 
-        hello_message = say_hi ()
-        res['response']['text'] = hello_message
+        res['response']['text'] = 'Привет! Купи слона!'
         res['response']['buttons'] = get_suggests(user_id)
         return
 
@@ -95,6 +81,7 @@ def handle_dialog(req, res):
 # Функция возвращает две подсказки для ответа.
 def get_suggests(user_id):
     session = sessionStorage[user_id]
+
     # Выбираем две первые подсказки из массива.
     suggests = [
         {'title': suggest, 'hide': True}
