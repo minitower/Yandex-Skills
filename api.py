@@ -1,6 +1,7 @@
 # coding: utf-8
 # Импортирует поддержку UTF-8.
 from __future__ import unicode_literals
+from func import *
 
 # Импортируем модули для работы с JSON и логами.
 import json
@@ -57,7 +58,9 @@ def handle_dialog(req, res):
             ]
         }
 
-        res['response']['text'] = 'Привет! Купи слона!'
+        hello_message = say_hi()
+
+        res['response']['text'] = hello_message
         res['response']['buttons'] = get_suggests(user_id)
         return
 
