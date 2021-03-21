@@ -15,7 +15,6 @@ from todoist_module import *
 
 app = Flask(__name__)
 
-
 logging.basicConfig(level=logging.DEBUG)
 
 # Хранилище данных о сессиях.
