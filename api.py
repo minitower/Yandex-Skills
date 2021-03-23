@@ -163,8 +163,7 @@ def handle_dialog(req, res):
 
         api = start_todoist ()
 
-        api.items.add (req['request']['original_utterance'].lower (),
-                               project_id = sessionStorage [user_id] ['project_id'])
+        api.items.add (' '.join (req['request']['original_utterance'].lower ()))
 
         api.commit()
 
