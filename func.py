@@ -15,3 +15,6 @@ def say_hi():
 
 #def read_storage (user_id):
 #    if sessionStorage [user_id] ['note']:
+#cd "Desktop\Сложные программы\Git\Yandex-Skills"
+
+#todoist-python==8.1.3
