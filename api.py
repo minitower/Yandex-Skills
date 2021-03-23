@@ -86,47 +86,6 @@ def handle_dialog(req, res):
         res ['response'] ['buttons'] = get_suggests (user_id)
         return
 
-    if req['request']['original_utterance'].lower () in [
-        'добавить заметку',
-        'создать заметку',
-        'сформировать заметку',
-        'заметку']:
-
-        api = start_todoist ()
-
-        sessionStorage [user_id] = {}
-
-        lst_projects = pars_responce (api)
-
-        sessionStorage [user_id] = {
-            'API': [
-                "True"
-            ],
-            'suggests': lst_projects
-        }
-
-        res ['response'] ['text'] = 'А в какой проект вы хотите записать это?'
-        res ['response'] ['buttons'] = get_suggests (user_id)
-        return
-
-
-    if req['request']['original_utterance'].lower () in [
-        'добавить заметку',
-        'создать заметку',
-        'сформировать заметку',
-        'заметку']:
-
-        start_todoist ()
-
-        sessionStorage [user_id] = {
-            'note': [
-                "True"
-            ]
-        }
-
-        res ['response'] ['text'] = 'Отлично, записываю'
-        res ['response'] ['buttons'] = get_suggests (user_id)
-        return
 
 
 
@@ -154,3 +113,6 @@ def get_suggests(user_id):
         })
 
     return suggests
+
+if __name__ == "__main__":
+    app.run(debug = False)
