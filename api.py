@@ -155,7 +155,7 @@ def handle_dialog(req, res):
         }
 
         res ['response'] ['text'] = 'Отлично, записываю'
-        res ['response'] ['buttons'] = get_suggests (user_id)
+        #res ['response'] ['buttons'] = get_suggests (user_id)
         return
 
     if sessionStorage [user_id]['note'] and \
@@ -185,7 +185,7 @@ def handle_dialog(req, res):
         }
 
         res ['response'] ['text'] = 'Готово!'
-        res ['response'] ['buttons'] = get_suggests (user_id)
+        #res ['response'] ['buttons'] = get_suggests (user_id)
         return
 
 
