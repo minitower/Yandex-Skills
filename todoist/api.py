@@ -64,7 +64,6 @@ class TodoistAPI(object):
         api_endpoint="https://api.todoist.com",
         api_version=DEFAULT_API_VERSION,
         session=None,
-        cache="~/.todoist-sync/",
     ):
         self.api_endpoint = api_endpoint
         self.api_version = api_version
