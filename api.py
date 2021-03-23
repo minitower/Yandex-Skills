@@ -75,6 +75,9 @@ def handle_dialog(req, res):
         sessionStorage [user_id] = {}
 
         sessionStorage [user_id] = {
+            'username': [
+                'True'
+                ],
             'suggests': [
                 "Добавить заметку",
                 "Назначить событие",
@@ -99,10 +102,15 @@ def handle_dialog(req, res):
         lst_projects = pars_responce (api)
 
         sessionStorage [user_id] = {
+            'username': [
+                'True'
+                ],
             'API': [
                 "True"
             ],
-            'suggests': lst_projects
+            'suggests': ['Входящие', 'Персональное', 'Список покупок',
+                         'Работа', 'Учеба', 'Фильмы', 'Другое'
+                         ]
         }
 
         res ['response'] ['text'] = 'А в какой проект вы хотите записать это?'
@@ -111,22 +119,75 @@ def handle_dialog(req, res):
 
 
     if req['request']['original_utterance'].lower () in [
-        'добавить заметку',
-        'создать заметку',
-        'сформировать заметку',
-        'заметку']:
+        'входящие', 'персональное', 'список покупок',
+        'работа', 'учеба', 'фильмы', 'любой']:
 
         start_todoist ()
+        if req['request']['original_utterance'].lower () == 'входящие':
+            ids = 1518621918
+        if req['request']['original_utterance'].lower () == 'персональное':
+            ids = 1518621919
+        if req['request']['original_utterance'].lower () == 'список покупок':
+            ids = 1518621920
+        if req['request']['original_utterance'].lower () == 'работа':
+            ids = 1518621921
+        if req['request']['original_utterance'].lower () == 'учеба':
+            ids = 1518621922
+        if req['request']['original_utterance'].lower () == 'фильмы':
+            ids = 1518621923
+        if req['request']['original_utterance'].lower () == 'любой':
+            ids = 1518621918
 
         sessionStorage [user_id] = {
+            'username': [
+                'True'
+                ],
             'note': [
                 "True"
-            ]
+            ],
+            'API': [
+                "True"
+            ],
+            'project_id':
+            [
+                ids
+             ]
         }
 
         res ['response'] ['text'] = 'Отлично, записываю'
         res ['response'] ['buttons'] = get_suggests (user_id)
         return
+
+    if sessionStorage [user_id]['note'] and \
+            len (req['request']['original_utterance'].lower ())>=3:
+
+        api = start_todoist ()
+
+        api.items.add (req['request']['original_utterance'].lower (),
+                               project_id = sessionStorage [user_id] ['project_id'])
+
+        api.commit()
+
+        sessionStorage [user_id] = {
+            'username': [
+                'True'
+                ],
+            'note': [
+                "True"
+            ],
+            'API': [
+                "True"
+            ],
+            'project_id':
+            [
+                ids
+             ]
+        }
+
+        res ['response'] ['text'] = 'Готово!'
+        res ['response'] ['buttons'] = get_suggests (user_id)
+        return
+
 
 
 

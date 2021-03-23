@@ -13,6 +13,9 @@ def say_hi():
     hello_message = '{} Представся пожалуйста!'.format(ToD)
     return hello_message
 
+#def previous_stage ():
+
+
 #def read_storage (user_id):
 #    if sessionStorage [user_id] ['note']:
 #cd "Desktop\Сложные программы\Git\Yandex-Skills"
